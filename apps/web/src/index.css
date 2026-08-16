@@ -1,0 +1,258 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+@layer base {
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background-color: #0F172A;
+    color: #F8FAFC;
+  }
+  
+  /* Liquid Glass theme active class */
+  body.liquid-glass-mode {
+    background-color: #EBF0F5;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(238, 242, 255, 0.9) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(252, 231, 243, 0.7) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(236, 253, 245, 0.7) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: #0F172A;
+  }
+}
+
+/* Liquid Glass Utilities inspired by UI Kit mockup */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.03),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.liquid-glass-btn-cyan {
+  background: linear-gradient(135deg, rgba(207, 250, 254, 0.75) 0%, rgba(186, 230, 253, 0.6) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 8px 20px -3px rgba(14, 165, 233, 0.2),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(2, 132, 199, 0.15);
+  color: #0369A1;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-btn-cyan:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 28px -2px rgba(14, 165, 233, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.liquid-glass-btn-purple {
+  background: linear-gradient(135deg, rgba(233, 213, 255, 0.75) 0%, rgba(216, 180, 254, 0.6) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 8px 20px -3px rgba(168, 85, 247, 0.2),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(126, 34, 206, 0.15);
+  color: #6B21A8;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-btn-purple:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 28px -2px rgba(168, 85, 247, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 6px rgba(126, 34, 206, 0.25);
+}
+
+.liquid-glass-btn-pink {
+  background: linear-gradient(135deg, rgba(254, 205, 211, 0.75) 0%, rgba(251, 113, 133, 0.3) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 8px 20px -3px rgba(244, 63, 94, 0.2),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(225, 29, 72, 0.15);
+  color: #9F1239;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-btn-pink:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 28px -2px rgba(244, 63, 94, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 6px rgba(225, 29, 72, 0.25);
+}
+
+.liquid-glass-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 8px 20px -4px rgba(0, 0, 0, 0.08),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1E293B;
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-circle:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 12px 25px -4px rgba(0, 0, 0, 0.12),
+    inset 0 2px 3px rgba(255, 255, 255, 1);
+}
+
+.liquid-glass-input {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 6px 16px -2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border-radius: 9999px;
+  color: #0F172A;
+  transition: all 0.2s ease;
+}
+
+.liquid-glass-input:focus {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 
+    0 0 0 4px rgba(56, 189, 248, 0.2),
+    0 8px 20px -2px rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+.liquid-glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 28px;
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.08),
+    0 10px 20px -5px rgba(0, 0, 0, 0.04),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Professional Polish Radial Grid Background */
+.bg-radial-grid {
+  background-color: #0F172A;
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+body.liquid-glass-mode .bg-radial-grid {
+  background-color: #EBF0F5;
+  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+}
+
+/* React Flow Customization for Liquid Glass */
+.react-flow__renderer {
+  background-color: #0F172A !important;
+  background-image: radial-gradient(#1e293b 1.2px, transparent 1.2px) !important;
+  background-size: 32px 32px !important;
+}
+
+body.liquid-glass-mode .react-flow__renderer {
+  background-color: #EBF0F5 !important;
+  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px) !important;
+}
+
+/* Node Liquid Glass Style */
+.react-flow__node {
+  border-radius: 1.25rem;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.875rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.liquid-glass-mode .react-flow__node {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  color: #0F172A !important;
+  box-shadow: 
+    0 15px 35px -5px rgba(0, 0, 0, 0.08),
+    inset 0 2px 2px rgba(255, 255, 255, 1) !important;
+}
+
+.react-flow__node:hover {
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.6) !important;
+  border-color: #38bdf8 !important;
+}
+
+.react-flow__edge-path {
+  stroke: #38bdf8 !important;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+body.liquid-glass-mode .react-flow__controls {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 1rem !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.liquid-glass-mode .react-flow__controls-button {
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5) !important;
+  color: #334155 !important;
+}
+
+body.liquid-glass-mode .react-flow__controls-button:hover {
+  background: rgba(56, 189, 248, 0.2) !important;
+  color: #0284C7 !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+}
+

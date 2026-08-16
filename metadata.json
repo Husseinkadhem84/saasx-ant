@@ -1,0 +1,6 @@
+{
+  "name": "SAASX",
+  "description": "منصة أتمتة الأنظمة وبناء سير العمل بالذكاء الاصطناعي - AI Automation Platform",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
