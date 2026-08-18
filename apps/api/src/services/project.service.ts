@@ -1,45 +1,27 @@
-﻿import { prisma } from '../config/database.js';
+import { prisma } from '../config/database.js';
 import { ProjectState, ProjectType, SnapshotReason } from '@saasx/shared';
 
-// Temporary mock user ID for development since auth is not implemented
-const DEV_MOCK_USER_ID = 'dev-mock-user-123';
+// DEV_MOCK_USER_ID and ensureDevUser() have been removed to enforce real identities.
 
-/**
- * Ensures the mock user exists for local development.
- * This should be removed in Phase 3 when real auth is added.
- */
-async function ensureDevUser() {
-  if (process.env.NODE_ENV !== 'production') {
-    const existing = await prisma.user.findUnique({ where: { id: DEV_MOCK_USER_ID } });
-    if (!existing) {
-      // Catch error in case it gets created concurrently
-      try {
-        await prisma.user.create({
-          data: {
-            id: DEV_MOCK_USER_ID,
-            email: 'dev@saasx.local',
-            name: 'Dev User',
-          }
-        });
-      } catch (e) {
-        // Ignore unique constraint violations
-      }
-    }
-  }
-  return DEV_MOCK_USER_ID;
-}
-
-export async function createProject(data: { name: string; description?: string; type: ProjectType; state: ProjectState }) {
-  const ownerId = await ensureDevUser();
-  
+export async function createProject(userId: string, data: { name: string; description?: string; type: ProjectType; state: ProjectState }) {
   return await prisma.$transaction(async (tx) => {
+    // Ensure user exists in our local Prisma database since they originate from Supabase Auth
+    const existingUser = await tx.user.findUnique({ where: { id: userId } });
+    if (!existingUser) {
+      await tx.user.create({
+        data: {
+          id: userId,
+          email: 'unknown@example.com', // Typically synced via webhook, placeholder for now
+        }
+      });
+    }
+
     const project = await tx.project.create({
       data: {
-        ownerId,
+        ownerId: userId,
         name: data.name,
         description: data.description,
         type: data.type,
-        // Convert the typed state to an untyped JSON object for Prisma
         state: data.state as any,
       },
     });
@@ -56,24 +38,32 @@ export async function createProject(data: { name: string; description?: string; 
   });
 }
 
-export async function getProjectById(id: string) {
-  return await prisma.project.findUnique({
-    where: { id },
+export async function getProjectById(userId: string, projectId: string) {
+  return await prisma.project.findFirst({
+    where: {
+      id: projectId,
+      ownerId: userId
+    },
   });
 }
 
-export async function listProjectsByOwner() {
-  const ownerId = await ensureDevUser();
+export async function listProjectsByOwner(userId: string) {
   return await prisma.project.findMany({
-    where: { ownerId },
+    where: { ownerId: userId },
     orderBy: { updatedAt: 'desc' },
   });
 }
 
-export async function updateProjectState(id: string, state: ProjectState, reason: SnapshotReason = SnapshotReason.MANUAL_SAVE) {
+export async function updateProjectState(userId: string, projectId: string, state: ProjectState, reason: SnapshotReason = SnapshotReason.MANUAL_SAVE) {
+  // Authorization check
+  const project = await getProjectById(userId, projectId);
+  if (!project) {
+    return null; // Return null so the controller can throw 404
+  }
+
   return await prisma.$transaction(async (tx) => {
-    const project = await tx.project.update({
-      where: { id },
+    const updated = await tx.project.update({
+      where: { id: projectId },
       data: {
         state: state as any,
       },
@@ -81,17 +71,20 @@ export async function updateProjectState(id: string, state: ProjectState, reason
 
     await tx.projectSnapshot.create({
       data: {
-        projectId: project.id,
+        projectId,
         state: state as any,
         reason,
       },
     });
 
-    return project;
+    return updated;
   });
 }
 
-export async function createProjectSnapshot(projectId: string, state: ProjectState, reason: SnapshotReason) {
+export async function createProjectSnapshot(userId: string, projectId: string, state: ProjectState, reason: SnapshotReason) {
+  const project = await getProjectById(userId, projectId);
+  if (!project) return null;
+
   return await prisma.projectSnapshot.create({
     data: {
       projectId,
@@ -101,7 +94,10 @@ export async function createProjectSnapshot(projectId: string, state: ProjectSta
   });
 }
 
-export async function getProjectSnapshots(projectId: string) {
+export async function getProjectSnapshots(userId: string, projectId: string) {
+  const project = await getProjectById(userId, projectId);
+  if (!project) return null;
+
   return await prisma.projectSnapshot.findMany({
     where: { projectId },
     orderBy: { createdAt: 'desc' },

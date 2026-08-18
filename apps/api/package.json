@@ -13,6 +13,7 @@
         "@google/genai": "^2.4.0",
         "@prisma/client": "^5.22.0",
         "@saasx/shared": "*",
+        "@supabase/supabase-js": "^2.112.3",
         "cors": "^2.8.5",
         "dotenv": "^17.2.3",
         "express": "^4.21.2",
