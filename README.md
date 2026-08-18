@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="./assets/saasx-logo.svg" width="260" alt="SAASX Logo" />
+![SAASX Banner](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop)
 
 **Transform natural language requirements into full-stack SaaS architectures, interactive workflows, database schemas, and self-hosted automation pipelines.**
 
